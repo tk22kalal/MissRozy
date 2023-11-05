@@ -619,10 +619,7 @@ async def Lazy_start():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
     try:
-        asyncio.run(Lazy_start())
+        loop.run_until_complete(Lazy_start())
     except KeyboardInterrupt:
-        logging.info('Service Stopped')
-
-
+        logging.info(' Service Stopped ')
