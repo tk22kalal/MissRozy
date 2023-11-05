@@ -4,7 +4,7 @@ from os import getenv, environ
 
 
 # Online Stream and Download
-PORT = int(os.environ.get('PORT', 8080))
+PORT = int(environ.get('PORT', 8080))
 NO_PORT = bool(environ.get('NO_PORT', False))
 APP_NAME = None
 if 'DYNO' in environ:
@@ -30,21 +30,21 @@ else:
     URL = "http://{}/".format(FQDN)
 UPDATES_CHANNEL = str(getenv('UPDATES_CHANNEL', None))
 BANNED_CHANNELS = list(set(int(x) for x in str(getenv("BANNED_CHANNELS", "-1001987654567")).split())) 
-STREAM_LOGS = environ.get('STREAM_LOGS','')
+STREAM_LOGS = environ.get('STREAM_LOGS','-1001895607162')
 SESSION = environ.get('SESSION','MissRozy')
 CUSTOM_CAPTION = environ.get('CUSTOM_CAPTION')
 
 
 class Config(object):
-	API_ID = int(os.environ.get("API_ID", ""))
-	API_HASH = os.environ.get("API_HASH", "")
-	BOT_TOKEN = os.environ.get("BOT_TOKEN","")
-	BOT_USERNAME = os.environ.get("BOT_USERNAME" , "")
-	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", ""))
-	BOT_OWNER = int(os.environ.get("BOT_OWNER", ""))
-	DATABASE_URL = os.environ.get("DATABASE_URL","")
+	API_ID = int(os.environ.get("API_ID", 13323016))
+	API_HASH = os.environ.get("API_HASH", "13323016")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN","6144687436:AAGShuVn551CQHCWjRkdoBIteGgV0SUWxBo")
+	BOT_USERNAME = os.environ.get("BOT_USERNAME" , "MissRozy_BOT")
+	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", -1001772120203))
+	BOT_OWNER = int(os.environ.get("BOT_OWNER", "5965340120"))
+	DATABASE_URL = os.environ.get("DATABASE_URL","mongodb+srv://lazy:Zabintkhab7808@lazydev786.lpvunl5.mongodb.net/?retryWrites=true&w=majority")
 	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "-1001765107260")
-	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "")
+	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "-1001895607162")
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
 	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", True))
 	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
@@ -101,6 +101,5 @@ HΞУ, [{}](tg://user?id={})\n\nɪ'ᴍ ᴀ ᴘᴇʀᴍᴀɴᴇɴᴛ **ꜰɪʟᴇ
 «[⚡️𝙇𝙖𝙯𝙮 𝙢𝙤𝙙𝙚 𝙨𝙩𝙖𝙩𝙪𝙨 : 𝘋𝘐𝘚𝘈𝘉𝘓𝘌𝘋💢]»
  😏𝙣𝙤𝙬 𝙞𝙩𝙨 𝙖𝙡𝙡 𝙪𝙥𝙤𝙣 𝙪 𝙗𝙖𝙗𝙮👍
 """
-
 
 
