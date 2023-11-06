@@ -28,9 +28,8 @@ from aiohttp import web
 from handlers import web_server
 
 MediaList = {}
-Bot.start()
-
 PORT = "8080"
+
 
 @Bot.on_message(filters.private)
 async def handle_private_messages(bot: Client, cmd: Message):
@@ -341,59 +340,5 @@ async def button(bot: Client, cmd: CallbackQuery):
                     disable_web_page_preview=True
                 )
                 return
-        if Config.LAZY_MODE == True:
-            await cmd.message.edit(
-                Config.LAZY_HOME_TEXT.format(cmd.message.chat.first_name, cmd.message.chat.id),
-                disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("🍿supp⊕r† gr⊕up", url="https://t.me/LazyDeveloperSupport"),
-                            InlineKeyboardButton("🔊ß⊕ts Channel", url="https://t.me/LazyDeveloper")
-                        ],
-                        [
-                            InlineKeyboardButton("🤖Aß⊕ut ß⊕t", callback_data="aboutbot"),
-                            InlineKeyboardButton("♥️Aß⊕ut Đ€V", callback_data="aboutdevs")
-                        ],
-                        [
-                            InlineKeyboardButton("⎝⎝✧✧ ᴡᴀᴛᴄʜ ᴛᴜᴛᴏʀɪᴀʟ ✧✧⎠⎠", url="https://youtu.be/Rtjyz3lEZwE")
-                        ]
-                    ]
-                )
-            )
-        else:
-            await cmd.message.edit(
-                Config.HOME_TEXT.format(cmd.message.chat.first_name, cmd.message.chat.id),
-                disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("🍿supp⊕r† gr⊕up", url="https://t.me/LazyDeveloperSupport"),
-                            InlineKeyboardButton("🔊ß⊕ts Channel", url="https://t.me/LazyDeveloper")
-                        ],
-                        [
-                            InlineKeyboardButton("🤖Aß⊕ut ß⊕t", callback_data="aboutbot"),
-                            InlineKeyboardButton("♥️Aß⊕ut Đ€V", callback_data="aboutdevs")
-                        ],
-                        [
-                            InlineKeyboardButton("⎝⎝✧✧ ᴡᴀᴛᴄʜ ᴛᴜᴛᴏʀɪᴀʟ ✧✧⎠⎠", url="https://youtu.be/Rtjyz3lEZwE")
-                        ]
-                    ]
-                )
-            )
-
-    if ON_HEROKU:
-        asyncio.create_task(ping_server())
-    me = await Bot.get_me()
-    Bot.username = '@' + me.username
-    app = web.AppRunner(await web_server())
-    await app.setup()
-    bind_address = "0.0.0.0" if ON_HEROKU else BIND_ADRESS
-    await web.TCPSite(app, bind_address, PORT).start()
-    await idle()
-
-if __name__ == '__main__':
-    try:
-        loop.run_until_complete(Lazy_start())
-    except KeyboardInterrupt:
-        logging.info(' Service Stopped ')
+        
+Bot.run()
