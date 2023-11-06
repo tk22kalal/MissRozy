@@ -616,10 +616,7 @@ async def Lazy_start():
     bind_address = "0.0.0.0" if ON_HEROKU else BIND_ADDRESS
     await web.TCPSite(app, bind_address, PORT).start()
     await asyncio.gather(idle(), ping_server())  # Use asyncio.gather to run multiple coroutines concurrently
-    except KeyboardInterrupt:
-        logging.info('Service Stopped')
-
-
+    
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     try:
