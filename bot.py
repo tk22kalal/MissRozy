@@ -72,7 +72,7 @@ import sys
 
 MediaList = {}
 Bot.start()
-loop = asyncio.get_event_loop()
+
 
 PORT = int(os.environ.get("PORT", 8080))
 
@@ -615,10 +615,13 @@ async def Lazy_start():
     await app.setup()
     bind_address = "0.0.0.0" if ON_HEROKU else BIND_ADDRESS
     await web.TCPSite(app, bind_address, PORT).start()
-    await idle()
+    await asyncio.gather(idle(), ping_server())  # Use asyncio.gather to run multiple coroutines concurrently
+    except KeyboardInterrupt:
+        logging.info('Service Stopped')
 
 
 if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
     try:
         loop.run_until_complete(Lazy_start())
     except KeyboardInterrupt:
