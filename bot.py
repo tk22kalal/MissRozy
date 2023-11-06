@@ -613,7 +613,7 @@ async def Lazy_start():
     Bot.username = '@' + me.username
     app = web.AppRunner(await web_server())
     await app.setup()
-    bind_address = "0.0.0.0" if ON_HEROKU else BIND_ADRESS
+    bind_address = "0.0.0.0" if ON_HEROKU else BIND_ADDRESS
     await web.TCPSite(app, bind_address, PORT).start()
     await idle()
 
