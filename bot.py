@@ -188,15 +188,17 @@ async def Lazy_start():
                 return
 
             if Config.OTHER_USERS_CAN_SAVE_FILE is False:
-                return            
+                return
 
             await message.reply_text(
-                text="ᴄʜᴏᴏꜱᴇ ᴀɴ ᴏᴘᴛɪᴏɴ ꜰʀᴏᴍ ʙᴇʟᴏᴡ:\n\n"
-                f"[Share Link](https://t.me/{Config.BOT_USERNAME}?start=LazyDeveloperr_{str_to_b64(forwarded_msg.id)})",
+                text="ᴄʜᴏᴏꜱᴇ ᴀɴ ᴏᴘᴛɪᴏɴ ꜰʀᴏᴍ ʙᴇʟᴏᴡ:",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("ŞΔV€ ƗŇ βΔŦĆĦ", callback_data="addToBatchTrue")],
+                    [InlineKeyboardButton(" ̿̿ ̿̿ ̿   𝘎𝘦𝘵 𝘚𝘩𝘢𝘳𝘢𝘣𝘭𝘦 𝘓𝘪𝘯𝘬 '̿̿ ̿ ̿ ̿ ̿", callback_data="addToBatchFalse")]
+                ]),
                 quote=True,
                 disable_web_page_preview=True
             )
-
         elif message.chat.type == enums.ChatType.CHANNEL:
             if (message.chat.id == int(Config.LOG_CHANNEL)) or (message.chat.id == int(Config.UPDATES_CHANNEL)) or message.forward_from_chat or message.forward_from:
                 return
@@ -210,9 +212,9 @@ async def Lazy_start():
                 forwarded_msg = await message.forward(Config.DB_CHANNEL)
                 file_er_id = str(forwarded_msg.id)
                 share_link = f"https://t.me/{Config.BOT_USERNAME}?start=LazyDeveloperr_{str_to_b64(file_er_id)}"
-                text_message = f"HERE IS YOUR LINK:\n\n[Share Link]({share_link})"
-                await bot.send_message(message.chat.id, text_message, parse_mode='Markdown', disable_web_page_preview=True)
-
+                CH_edit = await bot.edit_message_reply_markup(message.chat.id, message.id,
+                                                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
+                                                                "GΞΓ SHAЯeABLΞ LIИҜ", url=share_link)]]))
                 if message.chat.username:
                     await forwarded_msg.reply_text(
                         f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/{message.chat.username}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
