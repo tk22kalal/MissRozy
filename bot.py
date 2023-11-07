@@ -172,22 +172,33 @@ async def Lazy_start():
 
     @Bot.on_message((filters.document | filters.video | filters.audio) & ~filters.chat(Config.DB_CHANNEL))
     async def main(bot: Client, message: Message):
+
         if message.chat.type == enums.ChatType.PRIVATE:
+
             await add_user_to_database(bot, message)
+
             if Config.UPDATES_CHANNEL is not None:
                 back = await handle_force_sub(bot, message)
                 if back == 400:
                     return
+
             if message.from_user.id in Config.BANNED_USERS:
-                await message.reply_text("ꜱᴏʀʏ, ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ!\n\nContact [Support Group](https://t.me/LazyDeveloperSupport)",
-                                         disable_web_page_preview=True)
+                await message.reply_text("ꜱᴏʀʀʏ, ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ!\n\nContact [Support Group](https://t.me/LazyDeveloperSupport)",
+                                        disable_web_page_preview=True)
                 return
+
             if Config.OTHER_USERS_CAN_SAVE_FILE is False:
                 return
-            # Directly provide the sharable link without the inline keyboard
-            file_er_id = str(message.message_id)  # Modify this line accordingly
-            share_link = f"https://t.me/{Config.BOT_USERNAME}?start=LazyDeveloperr_{str_to_b64(file_er_id)}"
-            await message.reply_text(share_link, quote=True, disable_web_page_preview=True)
+
+            await message.reply_text(
+                text="ᴄʜᴏᴏꜱᴇ ᴀɴ ᴏᴘᴛɪᴏɴ ꜰʀᴏᴍ ʙᴇʟᴏᴡ:",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("ŞΔV€ ƗŇ βΔŦĆĦ", callback_data="addToBatchTrue")],
+                    [InlineKeyboardButton(" ̿̿ ̿̿ ̿   𝘎𝘦𝘵 𝘚𝘩𝘢𝘳𝘢𝘣𝘭𝘦 𝘓𝘪𝘯𝘬 '̿̿ ̿ ̿ ̿ ̿", callback_data="addToBatchFalse")]
+                ]),
+                quote=True,
+                disable_web_page_preview=True
+            )
         elif message.chat.type == enums.ChatType.CHANNEL:
             if (message.chat.id == int(Config.LOG_CHANNEL)) or (message.chat.id == int(Config.UPDATES_CHANNEL)) or message.forward_from_chat or message.forward_from:
                 return
@@ -196,13 +207,14 @@ async def Lazy_start():
                 return
             else:
                 pass
+
             try:
                 forwarded_msg = await message.forward(Config.DB_CHANNEL)
                 file_er_id = str(forwarded_msg.id)
                 share_link = f"https://t.me/{Config.BOT_USERNAME}?start=LazyDeveloperr_{str_to_b64(file_er_id)}"
                 CH_edit = await bot.edit_message_reply_markup(message.chat.id, message.id,
-                                                              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                                  "GΞΓ SHAЯeABLΞ LIИҜ", url=share_link)]]))
+                                                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
+                                                                "GΞΓ SHAЯeABLΞ LIИҜ", url=share_link)]]))
                 if message.chat.username:
                     await forwarded_msg.reply_text(
                         f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/{message.chat.username}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
@@ -225,7 +237,7 @@ async def Lazy_start():
                     disable_web_page_preview=True
                 )
 
-    
+
     @Bot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
     async def broadcast_handler_open(_, m: Message):
         await main_broadcast_handler(m, db)
